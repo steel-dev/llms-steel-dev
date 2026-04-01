@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}{{ section.title }}{% endblock %}
+
+{% block body_class %}page-section{% endblock %}
+
+{% block content %}
+<div class="container">
+    <section class="section page-intro stack-tight">
+        <h1>{{ section.title }}</h1>
+        {% if section.description %}
+        <p>{{ section.description }}</p>
+        {% endif %}
+        {% if section.content %}
+        <div class="chapter-copy">
+            {{ section.content | safe }}
+        </div>
+        {% endif %}
+    </section>
+
+    {% if section.pages %}
+    <section class="section">
+        <div class="posts">
+            {% for entry in section.pages %}
+            <article class="post">
+                <a href="{{ entry.permalink | safe }}">
+                    <div class="post-row">
+                        {% if entry.date %}
+                        <time datetime="{{ entry.date }}">{{ entry.date | date(format="%Y-%m-%d") }}</time>
+                        {% endif %}
+                        <h2>{{ entry.title }}</h2>
+                    </div>
+                    {% if entry.summary %}
+                    <p>{{ entry.summary }}</p>
+                    {% elif entry.description %}
+                    <p>{{ entry.description }}</p>
+                    {% endif %}
+                </a>
+            </article>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+    </div>
+{% endblock %}

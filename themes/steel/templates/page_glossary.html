@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}{{ page.title }}{% endblock %}
+
+{% block body_class %}page-glossary-term{% endblock %}
+
+{% block content %}
+{% set_global article_backlinks = [] %}
+{% for backlink in page.backlinks %}
+    {% if backlink.permalink is containing("/articles/") %}
+        {% set_global article_backlinks = article_backlinks | concat(with=[backlink]) %}
+    {% endif %}
+{% endfor %}
+<div class="container">
+    <article class="article-shell">
+        <header class="section page-intro stack-tight article-header">
+            <h1>{{ page.title }}</h1>
+            {% if page.description %}
+            <p>{{ page.description }}</p>
+            {% elif page.summary %}
+            <p>{{ page.summary }}</p>
+            {% endif %}
+        </header>
+
+        <div class="article-content chapter-copy">
+            {{ page.content | safe }}
+        </div>
+
+        {% if article_backlinks | length > 0 %}
+        <section class="section glossary-related">
+            <h2>Related Articles</h2>
+            <ul>
+                {% for backlink in article_backlinks %}
+                <li><a href="{{ backlink.permalink | safe }}">{{ backlink.title | default(value=backlink.permalink) }}</a></li>
+                {% endfor %}
+            </ul>
+        </section>
+        {% endif %}
+    </article>
+    <section class="section glossary-backlink">
+        <a href="{{ get_url(path='@/glossary/_index.md') | safe }}">Back to glossary</a>
+    </section>
+</div>
+{% endblock %}

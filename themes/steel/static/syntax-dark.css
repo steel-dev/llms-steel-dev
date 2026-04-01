@@ -1,0 +1,96 @@
+/*
+ * Steel dark syntax theme for Ansorum/Syntect token classes
+ */
+
+.z-code {
+  color: #f4f4f4;
+  background-color: #141414;
+}
+
+.z-comment,
+.z-punctuation.z-definition.z-comment {
+  color: #8d8d8d;
+}
+
+.z-keyword,
+.z-storage,
+.z-meta.z-selector,
+.z-markup.z-bold,
+.z-punctuation.z-definition.z-bold,
+.z-markup.z-italic,
+.z-punctuation.z-definition.z-italic {
+  color: #68ddfd;
+}
+
+.z-string,
+.z-markup.z-quote,
+.z-meta.z-link,
+.z-markup.z-inserted,
+.z-string.z-regexp {
+  color: #f5d90a;
+}
+
+.z-constant,
+.z-constant.z-numeric,
+.z-none,
+.z-entity.z-other.z-attribute-name,
+.z-entity.z-other.z-attribute-name.z-id,
+.z-punctuation.z-definition.z-entity,
+.z-support.z-class,
+.z-entity.z-name.z-class,
+.z-entity.z-name.z-type.z-class,
+.z-meta.z-class,
+.z-markup.z-changed {
+  color: #68ddfd;
+}
+
+.z-variable,
+.z-source.z-js .z-meta.z-function.z-js .z-variable.z-parameter.z-function.z-js,
+.z-source.z-js .z-variable.z-other.z-readwrite.z-js,
+.z-source.z-js .z-meta.z-function-call.z-method.z-js .z-variable.z-other.z-readwrite.z-js,
+.z-source.z-js .z-meta.z-block.z-js .z-variable.z-other.z-readwrite.z-js {
+  color: #ffffff;
+}
+
+.z-variable.z-parameter.z-function,
+.z-source.z-java .z-meta.z-class.z-java .z-meta.z-method.z-java,
+.z-source.z-java .z-meta.z-class.z-java .z-meta.z-class.z-body.z-java,
+.z-source.z-js .z-variable.z-other.z-object.z-js,
+.z-source.z-js .z-meta.z-block.z-js .z-variable.z-other.z-object.z-js,
+.z-source.z-js .z-meta.z-block.z-js .z-meta.z-function-call.z-method.z-js .z-variable.z-other.z-readwrite.z-js,
+.z-source.z-js .z-meta.z-function-call.z-method.z-js .z-variable.z-function.z-js,
+.z-source.z-js .z-support.z-constant.z-prototype.z-js {
+  color: #d7d7d7;
+}
+
+.z-entity.z-name.z-function,
+.z-meta.z-require,
+.z-support.z-function.z-any-method,
+.z-keyword.z-other.z-special-method,
+.z-support.z-function,
+.z-markup.z-heading .z-punctuation.z-definition.z-heading,
+.z-entity.z-name.z-section,
+.z-source.z-js .z-meta.z-property.z-object.z-js .z-entity.z-name.z-function.z-js {
+  color: #0091ff;
+}
+
+.z-entity.z-name.z-tag {
+  color: #68ddfd;
+}
+
+.z-markup.z-raw.z-inline,
+.z-constant.z-character.z-escape {
+  color: #30a46c;
+}
+
+.z-markup.z-deleted {
+  color: #ff7aa2;
+}
+
+.z-invalid.z-illegal,
+.z-invalid.z-broken,
+.z-invalid.z-deprecated,
+.z-invalid.z-unimplemented {
+  color: #ffffff;
+  background-color: #0091ff;
+}

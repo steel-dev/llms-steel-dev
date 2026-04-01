@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}{{ section.title }}{% endblock %}
+
+{% block body_class %}page-glossary-index{% endblock %}
+
+{% block content %}
+<div class="container">
+    <section class="section page-intro stack-tight">
+        <h1>{{ section.title }}</h1>
+        {% if section.description %}
+        <p>{{ section.description }}</p>
+        {% endif %}
+        {% if section.content %}
+        <div class="chapter-copy">
+            {{ section.content | safe }}
+        </div>
+        {% endif %}
+    </section>
+
+    {% if section.pages %}
+    <section class="section glossary-list">
+        {% for entry in section.pages | sort(attribute="title") %}
+        <article class="glossary-term dashed-box">
+            <h2><a href="{{ entry.permalink | safe }}">{{ entry.title }}</a></h2>
+            {% if entry.description %}
+            <p>{{ entry.description }}</p>
+            {% elif entry.summary %}
+            <p>{{ entry.summary }}</p>
+            {% endif %}
+        </article>
+        {% endfor %}
+    </section>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,9 @@
+name = "steel"
+description = "A dark, editorial Ansorum theme for Steel: monospace typography, sharp borders, proof-heavy layouts, and restrained product marketing."
+license = "MIT"
+min_version = "0.19.0"
+homepage = "https://steel.dev"
+
+[author]
+name = "Steel"
+homepage = "https://steel.dev"

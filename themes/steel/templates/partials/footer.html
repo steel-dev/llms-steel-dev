@@ -1,0 +1,42 @@
+{% set footer_links = config.extra.footer_links | default(value=[]) %}
+
+<footer class="container section" role="contentinfo">
+    <div class="footer-grid">
+        {% if footer_links | length > 0 %}
+            {% for column in footer_links %}
+            <div class="footer-card dashed-box">
+                <h3>{{ column.title }}</h3>
+                {% if column.groups is defined %}
+                    {% for group in column.groups %}
+                    <p class="footer-card__group-title">{{ group.title }}</p>
+                    {% for link in group.links %}
+                    <a href="{{ link.url | safe }}">{{ link.text }}</a>
+                    {% endfor %}
+                    {% endfor %}
+                {% else %}
+                    {% for link in column.links %}
+                    <a href="{{ link.url | safe }}">{{ link.text }}</a>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="footer-card dashed-box">
+                <h3>Site</h3>
+                <a href="{{ config.base_url | safe }}">Home</a>
+                <a href="{{ get_url(path='@/articles/_index.md') | safe }}">Articles</a>
+            </div>
+            <div class="footer-card dashed-box">
+                <h3>Project</h3>
+                <a href="/cancel/">Contact</a>
+                {% if config.generate_feeds %}
+                <a href="{{ get_url(path='rss.xml') | safe }}">RSS</a>
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+
+    <p class="footer-bottom">
+        &copy; {{ now() | date(format="%Y") }} {{ config.extra.author | default(value=config.title) }}.
+    </p>
+</footer>

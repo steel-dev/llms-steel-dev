@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block title %}{{ config.title }}{% endblock %}
+
+{% block body_class %}page-home{% endblock %}
+
+{% block content %}
+{% set articles = get_section(path="articles/_index.md", metadata_only=false, required=false) %}
+
+<div class="container">
+    <section class="section page-intro stack-tight" id="overview">
+        <h1>{{ config.extra.hero.title | default(value=config.title) }}</h1>
+        <p>{{ config.extra.hero.intro | default(value=config.description) }}</p>
+        {% if config.extra.hero.detail is defined %}
+        <p>{{ config.extra.hero.detail }}</p>
+        {% endif %}
+        <p class="eyebrow">Selected articles and operational guidance</p>
+    </section>
+
+    {% if articles and articles.pages %}
+    <section class="section">
+        <div class="section-heading">
+            <h2>Latest writing</h2>
+            <a href="{{ articles.permalink | safe }}">View all</a>
+        </div>
+        <div class="posts">
+            {% for article in articles.pages | slice(end=6) %}
+            <article class="post">
+                <a href="{{ article.permalink | safe }}">
+                    <div class="post-row">
+                        {% if article.date %}
+                        <time datetime="{{ article.date }}">{{ article.date | date(format="%Y-%m-%d") }}</time>
+                        {% endif %}
+                        <h3>{{ article.title }}</h3>
+                    </div>
+                    {% if article.summary %}
+                    <p>{{ article.summary }}</p>
+                    {% endif %}
+                </a>
+            </article>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
+    <section class="section story-grid-split">
+        <div class="stack-tight">
+            <h2>Instructions for AI Agents</h2>
+            <p>
+                Point your agent to <a href="https://docs.steel.dev/llms.txt">docs.steel.dev/llms.txt</a> for a fast
+                start with Steel.
+            </p>
+            <p>
+                Steel provides cloud browser infrastructure for AI agents. It gives an agent a real browser that can
+                navigate pages, fill forms, solve CAPTCHAs, and extract structured content.
+            </p>
+        </div>
+
+        <aside class="panel-box dashed-box quote stack-tight">
+            <p>
+                Install Steel CLI and the <code>steel-browser</code> skill if Steel is not available yet:
+            </p>
+            <pre><code>curl -LsSf https://setup.steel.dev | sh</code></pre>
+            <cite>Fastest way to start with Steel</cite>
+        </aside>
+    </section>
+</div>
+{% endblock %}

@@ -1,0 +1,82 @@
+{% set nav_links = config.extra.nav | default(value=[]) %}
+{% if config.extra.header_cta is defined %}
+    {% set header_cta_text = config.extra.header_cta.text %}
+    {% set header_cta_url = config.extra.header_cta.url %}
+{% else %}
+    {% set header_cta_text = "Contact" %}
+    {% set header_cta_url = "/cancel/" %}
+{% endif %}
+
+{% if config.extra.banner is defined %}
+    {% if config.extra.banner.html is defined %}
+        {% set banner_html = config.extra.banner.html %}
+    {% else %}
+        {% set banner_html = config.extra.banner.text %}
+    {% endif %}
+    {% if config.extra.banner.link_text is defined %}
+        {% set banner_link_text = config.extra.banner.link_text %}
+        {% set banner_link_url = config.extra.banner.link_url %}
+    {% else %}
+        {% set banner_link_text = "" %}
+        {% set banner_link_url = "" %}
+    {% endif %}
+{% else %}
+    {% set banner_html = config.description %}
+    {% set banner_link_text = "Learn more" %}
+    {% set banner_link_url = "#overview" %}
+{% endif %}
+
+<div class="banner">
+    <div class="banner-inner">
+        <span>{{ banner_html | safe }}</span>
+        {% if banner_link_text %}
+        <a href="{{ banner_link_url | safe }}">{{ banner_link_text }}</a>
+        {% endif %}
+    </div>
+</div>
+
+<header class="site-header" role="banner">
+    <div class="container header-inner">
+        <a class="brand" href="{{ config.base_url | safe }}" aria-label="{{ config.title }} home">
+            <span class="brand-mark" aria-hidden="true"></span>
+            <span>{{ config.title }}</span>
+        </a>
+
+        <nav class="desktop-nav" aria-label="Main">
+            {% if nav_links | length > 0 %}
+                {% for link in nav_links %}
+                <a href="{{ link.url | safe }}">{{ link.name }}</a>
+                {% if not loop.last %}<span class="divider">|</span>{% endif %}
+                {% endfor %}
+            {% else %}
+                <a href="{{ config.base_url | safe }}">Home</a>
+                <span class="divider">|</span>
+                <a href="{{ get_url(path='@/articles/_index.md') | safe }}">Articles</a>
+            {% endif %}
+        </nav>
+
+        <div class="header-actions">
+            {% if config.generate_feeds %}
+            <a href="{{ get_url(path='rss.xml') | safe }}">RSS</a>
+            <span class="divider">|</span>
+            {% endif %}
+            <a class="btn" href="{{ header_cta_url | safe }}">{{ header_cta_text }}</a>
+        </div>
+
+        <details class="mobile-nav">
+            <summary>Navigation</summary>
+            <nav class="dashed-box mobile-nav-panel" aria-label="Mobile">
+                {% if nav_links | length > 0 %}
+                    {% for link in nav_links %}
+                    <a href="{{ link.url | safe }}">{{ link.name }}</a>
+                    {% if not loop.last %}<span class="divider">|</span>{% endif %}
+                    {% endfor %}
+                {% else %}
+                    <a href="{{ config.base_url | safe }}">Home</a>
+                    <span class="divider">|</span>
+                    <a href="{{ get_url(path='@/articles/_index.md') | safe }}">Articles</a>
+                {% endif %}
+            </nav>
+        </details>
+    </div>
+</header>

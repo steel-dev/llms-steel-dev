@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="{{ lang | default(value='en') }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#111111">
+
+    {% if page %}
+        {% set resolved_title = page.title | default(value=config.title) %}
+        {% set resolved_description = page.description | default(value=page.summary) | default(value=config.description) %}
+    {% elif section %}
+        {% set resolved_title = section.title | default(value=config.title) %}
+        {% set resolved_description = section.description | default(value=config.description) %}
+    {% else %}
+        {% set resolved_title = config.title %}
+        {% set resolved_description = config.description %}
+    {% endif %}
+
+    <title>{% block title %}{{ resolved_title }}{% endblock %} | {{ config.title }}</title>
+    <meta name="description" content="{{ resolved_description }}">
+    <meta name="robots" content="index, follow">
+
+    {% if current_url is defined %}
+    <link rel="canonical" href="{{ current_url | safe }}">
+    {% endif %}
+
+    <meta property="og:type" content="{% if page %}article{% else %}website{% endif %}">
+    <meta property="og:title" content="{{ resolved_title }}">
+    <meta property="og:description" content="{{ resolved_description }}">
+    <meta property="og:site_name" content="{{ config.title }}">
+    {% if current_url is defined %}
+    <meta property="og:url" content="{{ current_url | safe }}">
+    {% endif %}
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ resolved_title }}">
+    <meta name="twitter:description" content="{{ resolved_description }}">
+
+    <link rel="stylesheet" href="{{ get_url(path='style.css') | safe }}">
+    {% if config.markdown.highlighting is defined %}
+    <link rel="stylesheet" href="{{ get_url(path='giallo.css') | safe }}">
+    <link rel="stylesheet" href="{{ get_url(path='syntax-dark.css') | safe }}">
+    {% endif %}
+
+    {% if config.extra.favicon is defined %}
+    <link rel="icon" href="{{ get_url(path=config.extra.favicon) | safe }}">
+    {% endif %}
+
+    {% if config.generate_feeds %}
+    <link rel="alternate" type="application/rss+xml" title="{{ config.title }}" href="{{ get_url(path='rss.xml') | safe }}">
+    {% endif %}
+
+    {% block head %}{% endblock %}
+</head>
+<body class="{% block body_class %}{% endblock %}">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    {% include "partials/header.html" %}
+
+    <main id="main-content" class="site-main" role="main">
+        {% block content %}{% endblock %}
+    </main>
+
+    {% include "partials/footer.html" %}
+</body>
+</html>

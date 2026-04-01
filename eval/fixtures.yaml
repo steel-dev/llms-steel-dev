@@ -1,0 +1,11 @@
+- question: what is a cloud browser for ai agents
+  expected_ids: [what-is-a-cloud-browser-for-ai-agents]
+  forbidden_ids: [internal-support-escalation]
+  required_terms: [sessions, replay, state]
+  rubric_focus: explain cloud browsers for agents in production terms and mention stateful execution or observability
+
+- question: how do i use openai computer use with steel
+  expected_ids: [openai-computer-use-with-steel]
+  forbidden_ids: [internal-support-escalation]
+  required_terms: [computer use, session, replay]
+  rubric_focus: connect OpenAI Computer Use to Steel sessions without drifting into unrelated framework guidance
